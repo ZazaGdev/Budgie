@@ -3,7 +3,10 @@
     <h2>Welcome to Budgie</h2>
     <p class="subtitle">Sign in to manage your budget</p>
 
-    <form class="login-form" (ngSubmit)="onLogin()">
+    <form
+      class="login-form"
+      (ngSubmit)="onLogin()"
+    >
       <div class="form-group">
         <label for="email">Email</label>
         <input
@@ -26,12 +29,18 @@
         />
       </div>
 
-      <button type="submit" class="login-btn" [disabled]="!isFormValid()">Sign In</button>
+      <button
+        type="submit"
+        class="login-btn"
+        [disabled]="!isFormValid()"
+      >
+        Sign In
+      </button>
     </form>
 
     <div class="demo-info">
       <p><strong>Demo Login:</strong></p>
-      <p>Email: john.doe@example.com</p>
+      <p>Email: john.doe&#64;example.com</p>
       <p>Password: demo123</p>
     </div>
   </div>

@@ -1,0 +1,13 @@
+{
+  "user": {
+    "id": "1",
+    "email": "john.doe@example.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "fullName": "John Doe",
+    "preferences": {
+      "theme": "light",
+      "currency": "USD"
+    }
+  }
+}
