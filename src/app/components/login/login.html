@@ -1,0 +1,38 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Welcome to Budgie</h2>
+    <p class="subtitle">Sign in to manage your budget</p>
+
+    <form class="login-form" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="login-btn" [disabled]="!isFormValid()">Sign In</button>
+    </form>
+
+    <div class="demo-info">
+      <p><strong>Demo Login:</strong></p>
+      <p>Email: john.doe@example.com</p>
+      <p>Password: demo123</p>
+    </div>
+  </div>
+</div>
