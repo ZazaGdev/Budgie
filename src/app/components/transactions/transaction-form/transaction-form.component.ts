@@ -14,6 +14,7 @@ export class TransactionFormComponent {
     transactionCategory: new FormControl(''),
     transactionAmount: new FormControl(0),
     transactionDate: new FormControl(new Date().toISOString().substring(0, 10)),
+    transactionNotes: new FormControl(''),
   });
   onSubmit() {
     // Handle form submission logic here

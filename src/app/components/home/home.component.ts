@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { TransactionFormComponent } from '../expense-income-form/transaction-form.component';
 import { WidgetCardComponent } from '../shared/widget-card/widget-card.component';
+import { TransactionFormComponent } from '../transactions/transaction-form/transaction-form.component';
 
 @Component({
   selector: 'app-home',
