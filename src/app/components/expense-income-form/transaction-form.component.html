@@ -1,0 +1,46 @@
+<form
+  (ngSubmit)="onSubmit()"
+  [formGroup]="transactionForm"
+>
+  <div>
+    <label for="transactionType">Type:</label>
+    <select
+      id="transactionType"
+      formControlName="transactionType"
+    >
+      <option value="expense">Expense</option>
+      <option value="income">Income</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="transactionCategory">Category:</label>
+    <select
+      id="transactionCategory"
+      formControlName="transactionCategory"
+    ></select>
+  </div>
+
+  <div>
+    <label for="date">Amount:</label>
+    <input
+      id="transactionAmount"
+      type="number"
+      formControlName="transactionAmount"
+      required
+    />
+  </div>
+
+  <div>
+    <label for="date">Date:</label>
+    <input
+      id="transactionDate"
+      type="date"
+      formControlName="transactionDate"
+      name="transactionDate"
+      required
+    />
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
