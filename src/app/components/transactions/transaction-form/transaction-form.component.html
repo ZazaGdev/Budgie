@@ -1,55 +1,187 @@
-<form
-  (ngSubmit)="onSubmit()"
-  [formGroup]="transactionForm"
->
-  <div>
-    <label for="transactionType">Type:</label>
-    <select
-      id="transactionType"
-      formControlName="transactionType"
+<div class="bg-white rounded-xl mt-2">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="transactionForm"
+    class="space-y-6"
+  >
+    <!-- Transaction Type -->
+    <div class="space-y-2">
+      <label
+        for="transactionType"
+        class="block text-sm font-semibold text-gray-700"
+      >
+        Transaction Type
+      </label>
+      <select
+        id="transactionType"
+        formControlName="transactionType"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm hover:border-gray-400"
+      >
+        <option
+          value="expense"
+          class="text-red-600"
+        >
+          💸 Expense
+        </option>
+        <option
+          value="income"
+          class="text-green-600"
+        >
+          💰 Income
+        </option>
+      </select>
+    </div>
+
+    <!-- Category -->
+    <div class="space-y-2">
+      <label
+        for="transactionCategory"
+        class="block text-sm font-semibold text-gray-700"
+      >
+        Category
+      </label>
+      <select
+        id="transactionCategory"
+        formControlName="transactionCategory"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm hover:border-gray-400"
+      >
+        <option
+          value=""
+          class="text-gray-400"
+        >
+          Select a category...
+        </option>
+        @for (category of categories; track category.id) {
+        <option [value]="category.id">
+          {{ category.icon + category.name }}
+        </option>
+        }
+      </select>
+    </div>
+
+    <!-- Amount -->
+    <div class="space-y-2">
+      <label
+        for="transactionAmount"
+        class="block text-sm font-semibold text-gray-700"
+      >
+        Amount
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+          <span class="text-gray-500 text-lg">$</span>
+        </div>
+        <input
+          id="transactionAmount"
+          type="number"
+          formControlName="transactionAmount"
+          step="0.01"
+          min="0"
+          placeholder="0.00"
+          class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm hover:border-gray-400"
+        />
+      </div>
+    </div>
+
+    <!-- Date -->
+    <div class="space-y-2">
+      <label
+        for="transactionDate"
+        class="block text-sm font-semibold text-gray-700"
+      >
+        Date
+      </label>
+      <input
+        id="transactionDate"
+        type="date"
+        formControlName="transactionDate"
+        name="transactionDate"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm hover:border-gray-400"
+      />
+    </div>
+
+    <!-- Notes -->
+    <div class="space-y-2">
+      <label
+        for="transactionNotes"
+        class="block text-sm font-semibold text-gray-700"
+      >
+        Notes
+        <span class="text-gray-400 font-normal">(Optional)</span>
+      </label>
+      <textarea
+        name="transactionNotes"
+        id="transactionNotes"
+        formControlName="transactionNotes"
+        rows="3"
+        placeholder="Add any additional notes about this transaction..."
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm hover:border-gray-400 resize-none"
+      ></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="pt-4">
+      <button
+        type="submit"
+        [disabled]="transactionForm.invalid"
+        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 disabled:transform-none hover:shadow-xl disabled:shadow-md"
+      >
+        <span class="flex items-center justify-center gap-2">
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            ></path>
+          </svg>
+          Add Transaction
+        </span>
+      </button>
+    </div>
+  </form>
+
+  <!-- Form Status Indicator -->
+  <div class="mt-6 text-center">
+    <div
+      *ngIf="transactionForm.invalid && transactionForm.touched"
+      class="inline-flex items-center gap-2 text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg"
     >
-      <option value="expense">Expense</option>
-      <option value="income">Income</option>
-    </select>
-  </div>
+      <svg
+        class="w-4 h-4"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+      Please fill in all required fields
+    </div>
 
-  <div>
-    <label for="transactionCategory">Category:</label>
-    <select
-      id="transactionCategory"
-      formControlName="transactionCategory"
-    ></select>
+    <div
+      *ngIf="transactionForm.valid"
+      class="inline-flex items-center gap-2 text-sm text-green-600 bg-green-50 px-3 py-2 rounded-lg"
+    >
+      <svg
+        class="w-4 h-4"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+      Ready to submit
+    </div>
   </div>
-
-  <div>
-    <label for="date">Amount:</label>
-    <input
-      id="transactionAmount"
-      type="number"
-      formControlName="transactionAmount"
-      required
-    />
-  </div>
-
-  <div>
-    <label for="date">Date:</label>
-    <input
-      id="transactionDate"
-      type="date"
-      formControlName="transactionDate"
-      name="transactionDate"
-      required
-    />
-  </div>
-
-  <div>
-    <label for="transactionNotes">Notes:</label>
-    <textarea
-      name="transactionNotes"
-      id="transactionNotes"
-      formControlName="transactionNotes"
-    ></textarea>
-  </div>
-
-  <button type="submit">Submit</button>
-</form>
+</div>

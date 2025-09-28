@@ -6,5 +6,5 @@ export interface Category {
   color: string;
   level: number;
   parentId: string | null;
-  children: Category[];
+  children: Category[] | [];
 }
