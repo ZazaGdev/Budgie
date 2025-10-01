@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Category } from '../../../models/category.model';
 
+import { TransactionRaw } from '../../../models/transaction.model';
 import { CategoriesService } from '../../../services/categories.service';
 import { TransactionService } from '../../../services/transaction.service';
 
@@ -17,7 +18,8 @@ export class TransactionFormComponent implements OnInit {
   categoriesService = inject(CategoriesService);
   transactionService = inject(TransactionService);
 
-  allCategories = this.categoriesService.getFlatCategories();
+  private cdr = inject(ChangeDetectorRef);
+
   categories: Category[] = [];
 
   transactionForm = new FormGroup({
@@ -43,14 +45,15 @@ export class TransactionFormComponent implements OnInit {
   async ngOnInit() {
     await this.categoriesService.setInitialCategories();
     this.categories = await this.categoriesService.getFlatCategories();
+    this.cdr.detectChanges();
     console.log(this.categories);
   }
 
   onSubmit() {
-    const data = {
+    const data: TransactionRaw = {
       type: this.transactionForm.value.transactionType as 'income' | 'expense',
-      amount: this.transactionForm.value.transactionAmount,
-      notes: this.transactionForm.value.transactionNotes,
+      amount: this.transactionForm.value.transactionAmount as number,
+      notes: this.transactionForm.value.transactionNotes as string,
       category: {
         id: this.transactionForm.value.transactionCategory!,
         name:
@@ -58,8 +61,7 @@ export class TransactionFormComponent implements OnInit {
             ?.name || '',
       },
     };
-    console.log(this.transactionForm.value);
-    console.log(this.transactionForm);
-    //this.transactionService.add(this.transactionForm.value);
+    console.log(data);
+    this.transactionService.add(data);
   }
 }

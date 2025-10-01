@@ -12,12 +12,12 @@ export class CategoriesService implements OnInit {
 
   async getAllCategories() {
     await this.delay(Math.random() * 500);
-    return JSON.parse(localStorage.getItem('categories') || '[]').categories;
+    return JSON.parse(localStorage.getItem('categories') || '[]');
   }
 
   async getFlatCategories() {
     await this.delay(Math.random() * 500);
-    const categories = JSON.parse(localStorage.getItem('categories') || '[]').categories;
+    const categories = JSON.parse(localStorage.getItem('categories') || '[]');
     const flatCategories: Category[] = [];
 
     const flattenCategories = (categories: Category[]) => {
@@ -36,7 +36,7 @@ export class CategoriesService implements OnInit {
   async setInitialCategories() {
     await this.delay(Math.random() * 500);
     if (!localStorage.getItem('categories')) {
-      localStorage.setItem('categories', JSON.stringify(defaultCategories));
+      localStorage.setItem('categories', JSON.stringify(defaultCategories.categories));
     }
   }
 
