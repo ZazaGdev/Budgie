@@ -1,1 +1,1 @@
-<p>transaction-list works!</p>
+@for (transaction of transactions; track transaction.id) { {{ transaction.note }} - {{ transaction.amount }} }

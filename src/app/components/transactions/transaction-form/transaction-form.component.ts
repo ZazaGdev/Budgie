@@ -39,7 +39,7 @@ export class TransactionFormComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    transactionNotes: new FormControl('', { nonNullable: true }),
+    transactionNote: new FormControl('', { nonNullable: true }),
   });
 
   async ngOnInit() {
@@ -53,7 +53,7 @@ export class TransactionFormComponent implements OnInit {
     const data: TransactionRaw = {
       type: this.transactionForm.value.transactionType as 'income' | 'expense',
       amount: this.transactionForm.value.transactionAmount as number,
-      notes: this.transactionForm.value.transactionNotes as string,
+      note: this.transactionForm.value.transactionNote as string,
       category: {
         id: this.transactionForm.value.transactionCategory!,
         name:

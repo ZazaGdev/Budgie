@@ -7,7 +7,9 @@ import { generateUID } from '../utils/uid.util';
 export class TransactionService {
   private transactions: any[] = [];
 
-  getAll() {
+  async getAll() {
+    await this.delay(Math.random() * 500);
+    this.transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
     return this.transactions;
   }
 
