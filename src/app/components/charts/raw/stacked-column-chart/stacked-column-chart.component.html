@@ -1,0 +1,24 @@
+<div class="chart-container">
+  <!-- ✅ GOOD: Safe property binding without assertions -->
+  @if (chartOptions.series && chartOptions.series.length > 0) {
+  <apx-chart
+    #chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [dataLabels]="chartOptions.dataLabels"
+    [plotOptions]="chartOptions.plotOptions"
+    [responsive]="chartOptions.responsive"
+    [xaxis]="chartOptions.xaxis"
+    [legend]="chartOptions.legend"
+    [fill]="chartOptions.fill"
+    [colors]="chartOptions.colors || []"
+    [title]="chartOptions.title || null"
+  ></apx-chart>
+  } @else {
+  <div class="empty-chart">
+    <div class="text-center py-12 text-gray-500">
+      <p>No data available for chart</p>
+    </div>
+  </div>
+  }
+</div>
