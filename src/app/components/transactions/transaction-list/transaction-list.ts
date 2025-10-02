@@ -31,4 +31,10 @@ export class TransactionList implements OnInit {
   getNetTotal(): number {
     return this.getTotalIncome() - this.getTotalExpenses();
   }
+
+  async deleteTransaction(id: string) {
+    await this.transactionService.deleteTransaction(id);
+    this.transactions = await this.transactionService.getAll();
+    this.cdr.detectChanges();
+  }
 }

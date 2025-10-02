@@ -61,7 +61,14 @@ export class TransactionFormComponent implements OnInit {
             ?.name || '',
       },
     };
-    console.log(data);
+
     this.transactionService.add(data);
+    // this.transactionForm.reset({
+    //   transactionType: 'expense',
+    //   transactionCategory: '',
+    //   transactionAmount: 0,
+    //   transactionDate: new Date().toISOString().substring(0, 10),
+    //   transactionNote: '',
+    // });
   }
 }
