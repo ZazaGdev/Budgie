@@ -18,4 +18,17 @@ export class TransactionList implements OnInit {
     this.cdr.detectChanges();
     console.log(this.transactions);
   }
+  getTotalIncome(): number {
+    return this.transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+  }
+
+  getTotalExpenses(): number {
+    return this.transactions
+      .filter(t => t.type === 'expense')
+      .reduce((sum, t) => sum + t.amount, 0);
+  }
+
+  getNetTotal(): number {
+    return this.getTotalIncome() - this.getTotalExpenses();
+  }
 }

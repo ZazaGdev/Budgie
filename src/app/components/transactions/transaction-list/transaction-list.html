@@ -1,1 +1,76 @@
-@for (transaction of transactions; track transaction.id) { {{ transaction.note }} - {{ transaction.amount }} }
+<div class="bg-white rounded-xl shadow-lg overflow-hidden">
+  <!-- Table Header -->
+  <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
+    <h2 class="text-xl font-bold text-white">Recent Transactions</h2>
+  </div>
+
+  <!-- Table Content -->
+  <div class="overflow-x-auto">
+    @if (transactions.length === 0) {
+    <!-- Empty State -->
+    <div class="text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+      </svg>
+      <h3 class="text-lg font-medium text-gray-900 mb-2">No transactions yet</h3>
+      <p class="text-gray-500">Start by adding your first transaction above.</p>
+    </div>
+    } @else {
+    <!-- Transactions Table -->
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Note</th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        @for (transaction of transactions; track transaction.id) {
+        <tr class="hover:bg-gray-50 transition-colors duration-200">
+          <!-- Type -->
+          <td class="px-6 py-4 whitespace-nowrap">
+            @if (transaction.type === 'income') {
+            <span
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              💰 Income
+            </span>
+            } @else {
+            <span
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+              💸 Expense
+            </span>
+            }
+          </td>
+
+          <!-- Category -->
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+            {{ transaction.category.name }}
+          </td>
+
+          <!-- Note -->
+          <td class="px-6 py-4 text-sm text-gray-700">
+            {{ transaction.note || 'No note' }}
+          </td>
+
+          <!-- Amount -->
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-medium">
+            @if (transaction.type === 'income') {
+            <span class="text-green-600 font-semibold">+${{ transaction.amount }}</span>
+            } @else {
+            <span class="text-red-600 font-semibold">-${{ transaction.amount }}</span>
+            }
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
+    }
+  </div>
+</div>
