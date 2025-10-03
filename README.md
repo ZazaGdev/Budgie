@@ -1,5 +1,7 @@
 # Budgie
 
+**Angular practice project for learning modern development: budget tracker with hierarchical categories, transaction forms, charts, authentication, async patterns, LocalStorage database.**
+
 This project was generated using
 [Angular CLI](https://github.com/angular/angular-cli) version 20.2.1.
 

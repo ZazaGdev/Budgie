@@ -16,7 +16,6 @@ export class TransactionList implements OnInit {
   async ngOnInit() {
     this.transactions = await this.transactionService.getAll();
     this.cdr.detectChanges();
-    console.log(this.transactions);
   }
   getTotalIncome(): number {
     return this.transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);

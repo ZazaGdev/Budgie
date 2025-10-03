@@ -46,7 +46,6 @@ export class TransactionFormComponent implements OnInit {
     await this.categoriesService.setInitialCategories();
     this.categories = await this.categoriesService.getFlatCategories();
     this.cdr.detectChanges();
-    console.log(this.categories);
   }
 
   onSubmit() {
