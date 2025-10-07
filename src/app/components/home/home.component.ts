@@ -25,4 +25,26 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.transactionService.initialize();
   }
+
+  async generateDummyData() {
+    try {
+      await this.transactionService.generateDummyData();
+      console.log('✅ Generated 2 months of realistic dummy data');
+    } catch (error) {
+      console.error('❌ Error generating dummy data:', error);
+    }
+  }
+
+  async clearAllData() {
+    if (
+      confirm('Are you sure you want to clear all transaction data? This action cannot be undone.')
+    ) {
+      try {
+        await this.transactionService.clearAllData();
+        console.log('✅ All transaction data cleared');
+      } catch (error) {
+        console.error('❌ Error clearing data:', error);
+      }
+    }
+  }
 }

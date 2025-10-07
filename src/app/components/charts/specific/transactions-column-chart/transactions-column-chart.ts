@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TransactionService } from '../../../../services/transaction.service';
 import { StackedColumnChartComponent } from '../../raw/stacked-column-chart/stacked-column-chart.component';
 import { ChartConfig, ChartData } from '../../raw/stacked-column-chart/stacked-column-chart.models';
@@ -11,7 +11,6 @@ import { ChartConfig, ChartData } from '../../raw/stacked-column-chart/stacked-c
 })
 export class TransactionsColumnChart {
   private transactionService = inject(TransactionService);
-  private cdr = inject(ChangeDetectorRef);
 
   chartData = computed<ChartData[]>(() => [
     {
