@@ -1,20 +1,20 @@
 <div class="p-4">
   <div class="grid grid-cols-12 gap-2">
     <app-widget-card
-      class="col-span-3"
+      class="col-span-4"
       title="Transactions"
     >
       <app-transaction-form />
     </app-widget-card>
-    <transactions-column-chart class="col-span-8" />
-    <div class="col-span-1 border-1"></div>
-    <div class="col-span-1 border-1"></div>
-    <div class="col-span-1 border-1"></div>
-    <div class="col-span-1 border-1"></div>
-    <div class="col-span-1 border-1"></div>
+    <app-widget-card
+      class="col-span-8"
+      title="Income vs Expenses"
+    >
+      <transactions-column-chart />
+    </app-widget-card>
   </div>
 
-  <div class="grid grid-cols-12 gap-2">
+  <div class="grid grid-cols-12 gap-2 pt-4">
     <app-widget-card
       class="col-span-6"
       title="Transactions"

@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
 import { ChartConfig, ChartData, ChartOptions } from './stacked-column-chart.models';
 
@@ -10,6 +18,7 @@ import { ChartConfig, ChartData, ChartOptions } from './stacked-column-chart.mod
 })
 export class StackedColumnChartComponent implements OnChanges {
   @ViewChild('chart') chart!: ChartComponent;
+  private cdr = inject(ChangeDetectorRef);
 
   @Input() data: ChartData[] = [];
   @Input() config: ChartConfig = {
@@ -20,7 +29,6 @@ export class StackedColumnChartComponent implements OnChanges {
     showLegend: true,
   };
 
-  // ✅ GOOD: Complete initialization with safe defaults
   public chartOptions: ChartOptions = {
     series: [],
     chart: {
@@ -52,11 +60,12 @@ export class StackedColumnChartComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data'] || changes['config']) {
       this.updateChart();
+
+      this.cdr.markForCheck();
     }
   }
 
   private updateChart() {
-    // ✅ GOOD: Update the existing object instead of replacing it
     this.chartOptions = {
       series: this.data,
       chart: {
@@ -99,7 +108,6 @@ export class StackedColumnChartComponent implements OnChanges {
       fill: {
         opacity: 1,
       },
-      // ✅ Handle optional properties safely
       colors: this.config.colors,
       title: this.config.title
         ? {
