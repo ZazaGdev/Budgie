@@ -5,16 +5,19 @@ import { generateUID } from '../utils/uid.util';
   providedIn: 'root',
 })
 export class TransactionService {
-  private transactions = signal<any[]>([]);
+  private _transactions = signal<any[]>([]);
+  public readonly transactions = this._transactions.asReadonly();
 
-  async getAll() {
-    await this.delay(Math.random() * 500);
-    this.transactions.set(JSON.parse(localStorage.getItem('transactions') || '[]'));
-    return this.transactions();
+  async getAll(): Promise<Transaction[]> {
+    await this.delay(Math.random() * 250);
+
+    const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+    this._transactions.set(transactions);
+    return transactions;
   }
 
-  async add(transaction: TransactionRaw) {
-    await this.delay(Math.random() * 500);
+  async add(transaction: TransactionRaw): Promise<Transaction> {
+    await this.delay(Math.random() * 250);
 
     const transactionWithId: Transaction = {
       ...transaction,
@@ -22,15 +25,25 @@ export class TransactionService {
       id: generateUID(),
     };
 
-    this.transactions().push(transactionWithId);
-    localStorage.setItem('transactions', JSON.stringify(this.transactions()));
+    const currentTransactions = this._transactions();
+    const updatedTransactions = [...currentTransactions, transactionWithId];
+
+    this._transactions.set(updatedTransactions);
+    localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
+
+    return transactionWithId;
   }
 
-  async deleteTransaction(id: string) {
-    await this.delay(Math.random() * 500);
-    const updatedTransactions = this.transactions().filter(t => t.id !== id);
-    this.transactions.set(updatedTransactions);
-    localStorage.setItem('transactions', JSON.stringify(this.transactions()));
+  async deleteTransaction(id: string): Promise<void> {
+    await this.delay(Math.random() * 250);
+
+    const updatedTransactions = this._transactions().filter(t => t.id !== id);
+    this._transactions.set(updatedTransactions);
+    localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
+  }
+
+  async initialize(): Promise<void> {
+    await this.getAll();
   }
 
   private delay(ms: number): Promise<void> {

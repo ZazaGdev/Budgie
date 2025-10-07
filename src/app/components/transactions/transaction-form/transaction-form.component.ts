@@ -48,26 +48,45 @@ export class TransactionFormComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  onSubmit() {
+  async onSubmit() {
+    if (this.transactionForm.invalid) {
+      this.transactionForm.markAllAsTouched();
+      return;
+    }
+
+    const formValue = this.transactionForm.getRawValue();
+    const selectedCategory = this.categories.find(cat => cat.id === formValue.transactionCategory);
+
+    if (!selectedCategory) {
+      console.error('Selected category not found');
+      return;
+    }
+
     const data: TransactionRaw = {
-      type: this.transactionForm.value.transactionType as 'income' | 'expense',
-      amount: this.transactionForm.value.transactionAmount as number,
-      note: this.transactionForm.value.transactionNote as string,
+      type: formValue.transactionType,
+      amount: formValue.transactionAmount,
+      note: formValue.transactionNote,
       category: {
-        id: this.transactionForm.value.transactionCategory!,
-        name:
-          this.categories.find(cat => cat.id === this.transactionForm.value.transactionCategory!)
-            ?.name || '',
+        id: formValue.transactionCategory,
+        name: selectedCategory.name,
       },
     };
+    try {
+      // ✅ FIXED: Await the add operation
+      await this.transactionService.add(data);
 
-    this.transactionService.add(data);
-    // this.transactionForm.reset({
-    //   transactionType: 'expense',
-    //   transactionCategory: '',
-    //   transactionAmount: 0,
-    //   transactionDate: new Date().toISOString().substring(0, 10),
-    //   transactionNote: '',
-    // });
+      // ✅ FIXED: Reset form after successful submission
+      // this.transactionForm.reset({
+      //   transactionType: 'expense',
+      //   transactionCategory: '',
+      //   transactionAmount: 0,
+      //   transactionDate: new Date().toISOString().substring(0, 10),
+      //   transactionNote: '',
+      // });
+
+      console.log('Transaction added successfully');
+    } catch (error) {
+      console.error('Error adding transaction:', error);
+    }
   }
 }
