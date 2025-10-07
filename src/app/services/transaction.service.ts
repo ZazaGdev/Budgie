@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Transaction, TransactionRaw } from '../models/transaction.model';
 import { generateUID } from '../utils/uid.util';
 @Injectable({
@@ -7,6 +7,20 @@ import { generateUID } from '../utils/uid.util';
 export class TransactionService {
   private _transactions = signal<any[]>([]);
   public readonly transactions = this._transactions.asReadonly();
+
+  public readonly totalIncome = computed(() =>
+    this._transactions()
+      .filter(t => t.type === 'income')
+      .reduce((sum, t) => sum + t.amount, 0)
+  );
+
+  public readonly totalExpenses = computed(() =>
+    this._transactions()
+      .filter(t => t.type === 'expense')
+      .reduce((sum, t) => sum + t.amount, 0)
+  );
+
+  public readonly netTotal = computed(() => this.totalIncome() - this.totalExpenses());
 
   async getAll(): Promise<Transaction[]> {
     await this.delay(Math.random() * 250);
