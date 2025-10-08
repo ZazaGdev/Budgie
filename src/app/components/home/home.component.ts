@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TransactionService } from '../../services/transaction.service';
-import { TransactionsColumnChart } from '../charts/specific/transactions-column-chart/transactions-column-chart';
+import { IncomeExpensesColumnChart } from '../charts/specific/transactions-column-chart/income-expenses-column-chart';
 import { WidgetCardComponent } from '../shared/widget-card/widget-card.component';
 import { TransactionFormComponent } from '../transactions/transaction-form/transaction-form.component';
 import { TransactionList } from '../transactions/transaction-list/transaction-list';
@@ -10,7 +10,7 @@ import { TransactionList } from '../transactions/transaction-list/transaction-li
     WidgetCardComponent,
     TransactionFormComponent,
     TransactionList,
-    TransactionsColumnChart,
+    IncomeExpensesColumnChart,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

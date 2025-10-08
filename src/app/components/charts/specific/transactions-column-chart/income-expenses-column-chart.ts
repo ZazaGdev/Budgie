@@ -1,16 +1,17 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { TransactionService } from '../../../../services/transaction.service';
 import { StackedColumnChartComponent } from '../../raw/stacked-column-chart/stacked-column-chart.component';
 import { ChartConfig, ChartData } from '../../raw/stacked-column-chart/stacked-column-chart.models';
 
 @Component({
-  selector: 'transactions-column-chart',
+  selector: 'income-expenses-column-chart',
   imports: [StackedColumnChartComponent],
-  templateUrl: './transactions-column-chart.html',
-  styleUrls: ['./transactions-column-chart.scss'],
+  templateUrl: './income-expenses-column-chart.html',
+  styleUrls: ['./income-expenses-column-chart.scss'],
 })
-export class TransactionsColumnChart {
+export class IncomeExpensesColumnChart {
   private transactionService = inject(TransactionService);
+  currentTimeFrame = signal('monthly');
 
   chartData = computed<ChartData[]>(() => [
     {
@@ -31,4 +32,9 @@ export class TransactionsColumnChart {
     showLegend: true,
     horizontal: false,
   };
+
+  setTimeFrame(frame: 'weekly' | 'monthly' | 'daily') {
+    this.currentTimeFrame.set(frame);
+    // Future implementation: Update chart data based on timeframe
+  }
 }
